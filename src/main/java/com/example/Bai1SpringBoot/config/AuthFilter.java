@@ -34,9 +34,9 @@ public class AuthFilter implements Filter {
         //Ap dung cho role Admin
         if(user.getRole().equals("A")){
             chain.doFilter(httpServletRequest, httpServletResponse);
-        }else if(user.getRole().equals("S")&& uri.equals("/showAddProduct") ){    //Ap dung cho role Seller
+        }else if(user.getRole().equals("S")&& uri.equals("/showAddProduct")|| uri.equals("/addProducts") || uri.startsWith("/ShowEdit") || uri.equals("/editProduct") || uri.equals("/searchProduct") ){    //Ap dung cho role Seller
             chain.doFilter(httpServletRequest, httpServletResponse);
-        }else if(user.getRole().equals("U") && uri.equals("/OrderProduct") || uri.startsWith("/ShowOrder/") ||uri.equals("/ShowOrderByUserId") || uri.equals("/ShowCart")|| uri.startsWith("/AddToCart")){    //Ap dung cho role User
+        }else if(user.getRole().equals("U") && uri.equals("/OrderProduct") || uri.startsWith("/ShowOrder/") ||uri.equals("/ShowOrderByUserId") || uri.equals("/ShowCart")|| uri.startsWith("/AddToCart") || uri.equals("/searchProduct") || uri.startsWith("/reduce/") || uri.startsWith("/increase") || uri.equals("/BuyProDuctInCart")){    //Ap dung cho role User
             chain.doFilter(httpServletRequest, httpServletResponse);
         }
         else{
