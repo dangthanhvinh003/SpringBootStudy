@@ -1,0 +1,41 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table border="1px">
+        <tr>
+            <td>Id</td>
+            <td>name</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td>Subtotal</td>
+
+        </tr>
+        <tr th:each="s : ${CartListModel}">
+            <td th:text="${s.pid}">ID</td>
+            <td th:text="${s.pName}">Name</td>
+            <td th:text="${s.price}">Price</td>
+            <td>
+                <a th:href="@{/reduce/{id}(id=${s.pid})}">-</a>
+                <input th:value="${s.quantity}" disabled style="width: 30px;">
+                <a th:href="@{/increase/{id}(id=${s.pid})}">+</a>
+            </td>
+            <td th:text="${s.price * s.quantity}">Subtotal</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td ><h3 th:text="${session.totalpriceAllProduct}"></h3></td>
+        </tr>
+    </table>
+    <a th:href="@{/BuyProDuctInCart}">Buy Product</a>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Index</title>
+</head>
+<body>
+    <h1>Index 123</h1>
+    <div th:if="${session.UserAfterLogin == null} "> <a th:href="@{/login}"> Login</a></div>
+    <div th:if="${session.UserAfterLogin != null} "> Hello <span th:text = "${session.UserAfterLogin.name}"></span> <br>Role : <strong th:text = "${session.UserAfterLogin.role}"></strong>
+    <br>
+        <a th:href="@{/ShowOrderByUserId}">View All Order</a>
+  
+    <br>
+        <a th:href="@{/ShowCart}">View Cart</a>
+    <br>
+    <a th:href="@{/logout}">Logout</a>
+    </div>
+    <div>
+        <form th:action="@{/searchProduct}" method="get">
+            <input type="text" name="search" placeholder="Search Product">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <table border="1px">
+        <tr>
+            <td>Id</td>
+            <td>name</td>
+            <td>Type</td>
+            <td>Detail</td>
+            <td th:if="${session.UserAfterLogin != null and session.UserAfterLogin.role == 'S'}">Edit</td>
+        </tr>
+        <tr th:each ="s : ${ProductList}" >
+            <td th:text = "${s.pid}">ID</td>
+            <td th:text = "${s.pName}">Name</td>
+            <td th:text = "${s.TypeProduct.tName}">Type</td>
+            <td> <a th:href="@{/ViewDetail/{id}(id=${s.pid})}"> View </a></td>
+            <td th:if="${session.UserAfterLogin != null and session.UserAfterLogin.role == 'S'}"> <a th:href="@{/ShowEdit/{id}(id=${s.pid})}">Edit</a> </td>
+        </tr>
+    </table>
+    <div th:if="${session.UserAfterLogin != null and session.UserAfterLogin.role == 'S'}"><a th:href="@{/showAddProduct}">Add New Product</a></div>
+</body>
+</html>

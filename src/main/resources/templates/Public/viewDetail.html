@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>View Detail</h1>
+   <h3 th:text="${ProductDetail.pid}"></h3>
+   <h3 th:text="${ProductDetail.pName}"></h3>
+   <h3 th:text="${ProductDetail.TypeProduct.tName}"></h3>
+   <h3 th:text="${ProductDetail.price}"></h3>
+   <h3 th:text="${ProductDetail.quantity}"></h3>
+   <img th:src="${ProductDetail.img}" style="width: 400px; height: auto;">
+   <a th:href="@{/}">Back to home</a>
+   <a th:href="@{/ShowOrder/{id}(id=${ProductDetail.pid})}">Buy</a> 
+   <a th:href="@{/AddToCart/{id}(id=${ProductDetail.pid})}">Add To Cart</a>
+</body>
+</html>
