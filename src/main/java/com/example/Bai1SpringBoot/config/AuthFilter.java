@@ -25,26 +25,31 @@ public class AuthFilter implements Filter {
         String uri = httpServletRequest.getRequestURI();
         HttpSession session = httpServletRequest.getSession();
         Users user = (Users) session.getAttribute("UserAfterLogin");
-        
-        //Ap dung cho tat ca cac role
-        if((uri.equals("/login") || uri.equals("/") || uri.equals("/loginToSystem") || uri.startsWith("/ViewDetail/") || uri.startsWith("/ShowOrder/") || uri.equals("/logout") || uri.equals("/searchProduct"))){
+
+        // Ap dung cho tat ca cac role
+        if ((uri.equals("/login") || uri.equals("/") || uri.equals("/loginToSystem") || uri.startsWith("/ViewDetail/")
+                || uri.startsWith("/ShowOrder/") || uri.equals("/logout") || uri.equals("/searchProduct")) || uri.equals("/showsignup") || uri.equals("/signup")) {
             chain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }
-        
-        //Ap dung cho role Admin
-        if(user==null){
+
+        // Ap dung cho role Admin
+        if (user == null) {
             httpServletResponse.sendRedirect("/login");
-        }else if(user.getRole().equals("S")&& uri.equals("/showAddProduct")|| uri.equals("/addProducts") || uri.startsWith("/ShowEdit") || uri.equals("/editProduct")  ){    //Ap dung cho role Seller
+        } else if (user.getRole().equals("S") && uri.equals("/showAddProduct") || uri.equals("/addProducts")
+                || uri.startsWith("/ShowEdit") || uri.equals("/editProduct")) { // Ap dung cho role Seller
             chain.doFilter(httpServletRequest, httpServletResponse);
-        }else if(user.getRole().equals("U") && uri.equals("/OrderProduct") || uri.startsWith("/ShowOrder/") ||uri.equals("/ShowOrderByUserId") || uri.equals("/ShowCart")|| uri.startsWith("/AddToCart")  || uri.startsWith("/reduce/") || uri.startsWith("/increase") || uri.equals("/BuyProDuctInCart")){    //Ap dung cho role User
+        } else if (user.getRole().equals("U") && uri.equals("/OrderProduct") || uri.startsWith("/ShowOrder/")
+                || uri.equals("/ShowOrderByUserId") || uri.equals("/ShowCart") || uri.startsWith("/AddToCart")
+                || uri.startsWith("/reduce/") || uri.startsWith("/increase") || uri.equals("/BuyProDuctInCart")) { // Ap dung cho role User
             chain.doFilter(httpServletRequest, httpServletResponse);
-        }else if(user.getRole().equals("A")){ 
-           chain.doFilter(httpServletRequest, httpServletResponse);
-        }
-        else{
+        }else if(user.getRole().equals("A")){
+            chain.doFilter(httpServletRequest, httpServletResponse);
+        } 
+        
+        else {
             httpServletResponse.sendRedirect("/");
         }
     }
-    
+
 }

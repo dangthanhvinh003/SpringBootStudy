@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Index 123</h1>
-    <div th:if="${session.UserAfterLogin == null} "> <a th:href="@{/login}"> Login</a></div>
+    <div th:if="${session.UserAfterLogin == null} "> <a th:href="@{/login}"> Login</a> / <a th:href="@{/showsignup}">Sign Up</a></div>
     <div th:if="${session.UserAfterLogin != null} "> Hello <span th:text = "${session.UserAfterLogin.name}"></span> <br>Role : <strong th:text = "${session.UserAfterLogin.role}"></strong>
     <br>
         <a th:href="@{/ShowOrderByUserId}">View All Order</a>
